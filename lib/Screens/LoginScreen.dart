@@ -20,6 +20,21 @@ class _LoginScreenState extends State<LoginScreen> {
   static final _pageController = PageController(
     initialPage: 0,
   );
+  List<FocusNode> _focusNodes = [
+    FocusNode(),
+    FocusNode(),
+  ];
+
+  @override
+  void initState() {
+    _focusNodes.forEach((node){
+      node.addListener(() {
+        setState(() {});
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: NeumorphicText(
                             'Shopping List',
                             style: NeumorphicStyle(
-                                lightSource: LightSource.top
+                                lightSource: LightSource.top,
+                                color: Kolors.accent2
                             ),
-                            textStyle: NeumorphicTextStyle(fontSize: 32.0.sp,),),
+                            textStyle: NeumorphicTextStyle(
+                              fontSize: 32.0.sp,
+                            ),),
                         ),
                       ),
                       Expanded(
@@ -67,14 +85,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Neumorphic(
                                 child: TextField(
+                                  focusNode: _focusNodes[0],
                                   keyboardType: TextInputType.emailAddress,
                                   controller: _emailController,
                                   style: GoogleFonts.nunito(
                                       fontSize: 14.0.sp
                                   ),
                                   decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Kolors.background,
                                       hintText: 'Enter Email',
-                                      prefixIcon: Icon(Icons.email_outlined)
+                                      hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
+                                      prefixIcon: Icon(Icons.email_outlined),
+                                      prefixIconColor: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey,
+                                      border: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Kolors.foreground)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Kolors.foreground)),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Kolors.foreground)),
+                                      errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Kolors.foreground)),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Kolors.foreground)),
                                   ),
                                 ),
                               ),
@@ -89,8 +122,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   obscureText: true,
                                   decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Kolors.background,
                                       hintText: 'Enter Password',
-                                      prefixIcon: Icon(Icons.password_outlined)
+                                    hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
+                                      prefixIcon: Icon(Icons.password_outlined),
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
                                   ),
                                 ),
                               )
@@ -111,14 +157,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       width: 50.w,
                                       child: NeumorphicProgressIndeterminate(
                                         style: ProgressStyle(
-                                          accent: Kolors.accent2
+                                            accent: Kolors.accent2,
+                                            variant: Kolors.accent
                                         ),
                                       ),
                                     )
                                     :
                                 Text('Sign In', style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold),),
                                 style: NeumorphicStyle(
-                                    lightSource: LightSource.bottom
+                                    lightSource: LightSource.bottom,
+                                    color: Kolors.background
                                 ),
                                 onPressed: () async {
                                   setState(() {
@@ -134,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                         content: Text(
                                           result,
-                                          style: TextStyle(fontSize: 16.0.sp),
+                                          style: GoogleFonts.nunito(fontSize: 14.0.sp),
                                         ),
                                       ));
                                     }
@@ -172,9 +220,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: NeumorphicText(
                             'Shopping List',
                             style: NeumorphicStyle(
-                                lightSource: LightSource.top
+                                lightSource: LightSource.top,
+                                color: Kolors.accent2
                             ),
-                            textStyle: NeumorphicTextStyle(fontSize: 32.0.sp,),),
+                            textStyle: NeumorphicTextStyle(
+                              fontSize: 32.0.sp,
+                            ),),
                         ),
                       ),
                       Expanded(
@@ -186,15 +237,30 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Neumorphic(
                                 child: TextField(
+                                  focusNode: _focusNodes[0],
+                                  keyboardType: TextInputType.emailAddress,
                                   controller: _emailController,
                                   style: GoogleFonts.nunito(
                                       fontSize: 14.0.sp
                                   ),
                                   decoration: InputDecoration(
-                                      hintText: 'Enter Email',
-                                      prefixIcon: Icon(Icons.email_outlined)
+                                    filled: true,
+                                    fillColor: Kolors.background,
+                                    hintText: 'Enter Email',
+                                    hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
+                                    prefixIcon: Icon(Icons.email_outlined),
+                                    prefixIconColor: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey,
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
                                   ),
-                                  keyboardType: TextInputType.emailAddress,
                                 ),
                               ),
                               SizedBox(
@@ -202,14 +268,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               Neumorphic(
                                 child: TextField(
-                                  obscureText: true,
                                   controller: _passwordController,
                                   style: GoogleFonts.nunito(
                                       fontSize: 14.0.sp
                                   ),
+                                  obscureText: true,
                                   decoration: InputDecoration(
-                                      hintText: 'Enter Password',
-                                      prefixIcon: Icon(Icons.password_outlined)
+                                    filled: true,
+                                    fillColor: Kolors.background,
+                                    hintText: 'Enter Password',
+                                    hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
+                                    prefixIcon: Icon(Icons.password_outlined),
+                                    border: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
+                                    focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Kolors.foreground)),
                                   ),
                                 ),
                               )
@@ -230,14 +309,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   width: 50.w,
                                   child: NeumorphicProgressIndeterminate(
                                     style: ProgressStyle(
-                                        accent: Kolors.accent2
+                                        accent: Kolors.accent2,
+                                        variant: Kolors.accent
                                     ),
                                   ),
                                 )
                                     :
                                 Text('Sign Up', style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold),),
                                 style: NeumorphicStyle(
-                                    lightSource: LightSource.bottom
+                                    lightSource: LightSource.bottom,
+                                  depth: 3,
+                                  color: Kolors.background
                                 ),
                                 onPressed: () async{
                                   setState(() {
@@ -253,7 +335,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                         content: Text(
                                           result,
-                                          style: TextStyle(fontSize: 16.0.sp),
+                                          style: TextStyle(fontSize: 12.0.sp),
                                         ),
                                       ));
                                       setState(() {

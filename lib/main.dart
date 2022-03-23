@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:shopping_list/Utils/Colors.dart';
 import 'package:sizer/sizer.dart';
 import 'Screens/LoginScreen.dart';
 
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Shopping List',
         home: LoginScreen(),
+        themeMode: ThemeMode.dark,
       );
     });
   }
