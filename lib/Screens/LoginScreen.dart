@@ -194,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.0.sp),
+                              margin: EdgeInsets.symmetric(vertical: 20.0.sp),
                               child: GestureDetector(
                                 child: Text('Want to Sign Up ?', style: GoogleFonts.nunito(fontSize: 12.0.sp, color: Colors.white),),
                                 onTap: (){
@@ -347,7 +347,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.0.sp),
+                              margin: EdgeInsets.symmetric(vertical: 20.0.sp),
                               child: GestureDetector(
                                 child: Text('Want to Sign In ?', style: GoogleFonts.nunito(fontSize: 12.0.sp, color: Colors.white),),
                                 onTap: (){

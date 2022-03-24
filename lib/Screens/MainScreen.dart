@@ -91,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
                             _addOrUpdate('Update', _allData[index].id);
                           }
                         },
-                        child: Dismissible(
+                        child: _allData[index].createdBy == AuthenticationHelper().email ? Dismissible(
                           key: Key(_allData[index].id),
                           background: Container(
                             color: Kolors.accent,
@@ -160,6 +160,41 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             )
                           ),
+                        ) : Neumorphic(
+                            margin: EdgeInsets.symmetric(vertical: 10.0.sp, horizontal: 15.0.sp),
+                            style: NeumorphicStyle(
+                              lightSource: LightSource.top,
+                              depth: 3,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Kolors.foreground
+                              ),
+                              height: 10.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(_allData[index].name, style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold, color: Kolors.accent2)),
+                                        Text(_allData[index].createdBy, style: GoogleFonts.nunito(fontSize: 10.0.sp, color: Kolors.accent)),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
+                                    alignment: Alignment.center,
+                                    child: Text(_allData[index].quantity, style: GoogleFonts.nunito(fontSize: 18.0.sp, color: Kolors.accent2),),
+                                  )
+                                ],
+                              ),
+                            )
                         ),
                       );
                     },
