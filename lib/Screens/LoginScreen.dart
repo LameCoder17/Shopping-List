@@ -29,7 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     _focusNodes.forEach((node){
       node.addListener(() {
-        setState(() {});
+        setState(() {
+          print(_focusNodes[0].hasFocus);
+        });
       });
     });
     super.initState();
@@ -96,8 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fillColor: Kolors.background,
                                       hintText: 'Enter Email',
                                       hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
-                                      prefixIcon: Icon(Icons.email_outlined),
-                                      prefixIconColor: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey,
+                                      prefixIcon: Icon(Icons.email_outlined, color: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey),
                                       border: UnderlineInputBorder(
                                           borderSide: BorderSide(color: Kolors.foreground)),
                                       focusedBorder: UnderlineInputBorder(
@@ -121,12 +122,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fontSize: 14.0.sp
                                   ),
                                   obscureText: true,
+                                  focusNode: _focusNodes[1],
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Kolors.background,
                                       hintText: 'Enter Password',
                                     hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
-                                      prefixIcon: Icon(Icons.password_outlined),
+                                      prefixIcon: Icon(Icons.password_outlined, color: _focusNodes[1].hasFocus ? Kolors.accent : Colors.grey),
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(color: Kolors.foreground)),
                                     focusedBorder: UnderlineInputBorder(
@@ -150,7 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              //width: 50.w,
                               child: NeumorphicButton(
                                 child: _loading ?
                                     Container(
@@ -248,8 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fillColor: Kolors.background,
                                     hintText: 'Enter Email',
                                     hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
-                                    prefixIcon: Icon(Icons.email_outlined),
-                                    prefixIconColor: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey,
+                                    prefixIcon: Icon(Icons.email_outlined, color: _focusNodes[0].hasFocus ? Kolors.accent : Colors.grey),
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(color: Kolors.foreground)),
                                     focusedBorder: UnderlineInputBorder(
@@ -272,13 +272,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   style: GoogleFonts.nunito(
                                       fontSize: 14.0.sp
                                   ),
+                                  focusNode: _focusNodes[1],
                                   obscureText: true,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Kolors.background,
                                     hintText: 'Enter Password',
                                     hintStyle: GoogleFonts.nunito(fontSize: 12.0.sp, color: Kolors.accent2),
-                                    prefixIcon: Icon(Icons.password_outlined),
+                                    prefixIcon: Icon(Icons.password_outlined, color: _focusNodes[1].hasFocus ? Kolors.accent : Colors.grey),
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(color: Kolors.foreground)),
                                     focusedBorder: UnderlineInputBorder(
