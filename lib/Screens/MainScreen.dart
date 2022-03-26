@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
       body: SingleChildScrollView(
         child: Container(
           child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('items').snapshots(),
+            stream: FirebaseFirestore.instance.collection(AuthenticationHelper().id).snapshots(),
             builder: (context, snapshot){
               if(!snapshot.hasData){
                 return NeumorphicProgressIndeterminate();
@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                 snapshot.data!.docs.forEach((element) => _allData.add(FirebaseDataModel.fromMap(element))
                 );
 
-                return Container(
+                return _allData.length != 0 ? Container(
                   child: ListView.builder(
                     itemCount: _allData.length,
                     shrinkWrap: true,
@@ -83,45 +83,26 @@ class _MainScreenState extends State<MainScreen> {
                     itemBuilder: (context, index){
                       return GestureDetector(
                         onTap: (){
-                          if(_allData[index].createdBy == AuthenticationHelper().email){
-                            _name.text = _allData[index].name;
-                            _quantity.text = _allData[index].quantity.split(' ')[0];
-                            _type = _allData[index].quantity.split(' ')[1];
-                            print(_type);
-                            _addOrUpdate('Update', _allData[index].id);
-                          }
+                          _name.text = _allData[index].name;
+                          _quantity.text = _allData[index].quantity.split(' ')[0];
+                          _type = _allData[index].quantity.split(' ')[1];
+                          print(_type);
+                          _addOrUpdate('Update', _allData[index].id);
                         },
-                        child: _allData[index].createdBy == AuthenticationHelper().email ? Dismissible(
+                        child: Dismissible(
                           key: Key(_allData[index].id),
                           background: Container(
                             color: Kolors.accent,
                           ),
-                          /*confirmDismiss: (direction){
-                            if(_allData[index].createdBy == AuthenticationHelper().email){
-                              return _deleteItem(_allData[index].id);
-                            }
-                            else{
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('Item Successfully Deleted', style: GoogleFonts.nunito(fontSize: 14.0.sp),)
-                                  ));
-                              return false as Future<bool>;
-                            }
-                          },*/
                           onDismissed: (direction) async {
-                            if(_allData[index].createdBy == AuthenticationHelper().email){
-                              await Database.deleteItem(_allData[index].id).then((value){
-                                setState(() {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text('Item Successfully Deleted', style: GoogleFonts.nunito(fontSize: 14.0.sp),)
-                                      ));
-                                });
+                            await Database.deleteItem(_allData[index].id).then((value){
+                              setState(() {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Item Successfully Deleted', style: GoogleFonts.nunito(fontSize: 14.0.sp),)
+                                    ));
                               });
-                            }
-                            else{
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item cannot be deleted as not added by you')));
-                            }
+                            });
                           },
                           child: Neumorphic(
                             margin: EdgeInsets.symmetric(vertical: 10.0.sp, horizontal: 15.0.sp),
@@ -142,63 +123,23 @@ class _MainScreenState extends State<MainScreen> {
                                   Container(
                                     margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
                                     alignment: Alignment.center,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(_allData[index].name, style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold, color: Kolors.accent2)),
-                                        Text(_allData[index].createdBy, style: GoogleFonts.nunito(fontSize: 10.0.sp, color: Kolors.accent)),
-                                      ],
-                                    ),
+                                    child: Text(_allData[index].name, style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold, color: Kolors.accent2)),
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
                                     alignment: Alignment.center,
-                                    child: Text(_allData[index].quantity, style: GoogleFonts.nunito(fontSize: 18.0.sp, color: Kolors.accent2),),
+                                    child: Text(_allData[index].quantity, style: GoogleFonts.nunito(fontSize: 18.0.sp, color: Kolors.accent),),
                                   )
                                 ],
                               ),
                             )
                           ),
-                        ) : Neumorphic(
-                            margin: EdgeInsets.symmetric(vertical: 10.0.sp, horizontal: 15.0.sp),
-                            style: NeumorphicStyle(
-                              lightSource: LightSource.top,
-                              depth: 3,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Kolors.foreground
-                              ),
-                              height: 10.h,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(_allData[index].name, style: GoogleFonts.nunito(fontSize: 16.0.sp, fontWeight: FontWeight.bold, color: Kolors.accent2)),
-                                        Text(_allData[index].createdBy, style: GoogleFonts.nunito(fontSize: 10.0.sp, color: Kolors.accent)),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
-                                    alignment: Alignment.center,
-                                    child: Text(_allData[index].quantity, style: GoogleFonts.nunito(fontSize: 18.0.sp, color: Kolors.accent2),),
-                                  )
-                                ],
-                              ),
-                            )
-                        ),
+                        )
                       );
                     },
                   ),
+                ) : Center(
+                  child: Text('No Items Added Yet !', style: GoogleFonts.nunito(fontSize: 16.0.sp, color: Kolors.accent),),
                 );
               }
             },
@@ -355,7 +296,6 @@ class _MainScreenState extends State<MainScreen> {
                     if (_formKey.currentState!.validate()) {
                       if(action == 'Add'){
                         await Database.addItem({
-                          'createdBy' : AuthenticationHelper().email,
                           'name' : _name.text,
                           'quantity' : '${_quantity.text} $_type'
                         }).then((value){
