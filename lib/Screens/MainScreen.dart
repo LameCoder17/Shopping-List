@@ -328,38 +328,4 @@ class _MainScreenState extends State<MainScreen> {
           });
         });
   }
-
-  /*_deleteItem (String id) async {
-    return await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Kolors.background,
-          title: Text("Delete", style: GoogleFonts.nunito(fontSize: 16.0.sp, color: Kolors.accent, fontWeight: FontWeight.bold)),
-          content: Text(
-              "Are you sure you want to delete this item?"),
-          actions: <Widget>[
-            MaterialButton(
-              onPressed: () async {
-                await Database.deleteItem(id).then((value){
-                  setState(() {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text('Item Successfully Deleted', style: GoogleFonts.nunito(fontSize: 14.0.sp),)
-                        ));
-                  });
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text("Delete"),
-            ),
-            MaterialButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancel"),
-            ),
-          ],
-        );
-      },
-    );
-  }*/
 }
